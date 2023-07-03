@@ -1,0 +1,28 @@
+<div class="solves" *ngIf="solves$">
+  <table mat-table [dataSource]="solves$">
+
+    <ng-container matColumnDef="Date">
+      <th mat-header-cell *matHeaderCellDef>Date Solved</th>
+      <td mat-cell *matCellDef="let solve">{{solve.date | date: 'short'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Time">
+      <th mat-header-cell *matHeaderCellDef>Solve Time</th>
+      <td mat-cell *matCellDef="let solve">{{solve.solveTime | solveTime}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Completed">
+      <th mat-header-cell *matHeaderCellDef>Completed</th>
+      <td mat-cell *matCellDef="let solve">{{solve.complete}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Scramble">
+      <th mat-header-cell *matHeaderCellDef>Scramble</th>
+      <td mat-cell *matCellDef="let solve">{{solve.scramble}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
