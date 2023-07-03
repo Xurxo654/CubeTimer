@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
+import {StorageService} from "./storage.service";
 
 
 @Injectable({
@@ -11,12 +12,14 @@ export class StatsService {
   solveBehaviorSubject: BehaviorSubject<Solve[]> = new BehaviorSubject<Solve[]>(this.solves);
   solves$: Observable<Solve[]> = this.solveBehaviorSubject.asObservable();
 
-  constructor() {
-
+  constructor(private storageService: StorageService) {
+    this.solves = storageService.getSolves();
+    this.solveBehaviorSubject.next(this.solves);
   }
 
   addSolve(solve: Solve): void {
     this.solves.push(solve);
+    this.storageService.saveSolves(this.solves);
     this.solveBehaviorSubject.next(this.solves);
   }
 
@@ -38,5 +41,11 @@ export class StatsService {
 
   getSolves(): Observable<Solve[]> {
     return this.solves$;
+  }
+
+  clearSolves(): void {
+    this.storageService.clearSolves();
+    this.solves = [];
+    this.solveBehaviorSubject.next(this.solves);
   }
 }

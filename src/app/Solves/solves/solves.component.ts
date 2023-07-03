@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
 })
 export class SolvesComponent implements OnInit {
 
-  displayedColumns: string[] = ['Date', 'Time', 'Completed', 'Scramble'];
+  displayedColumns: string[] = ['Date', 'Time', 'Solved', 'Scramble'];
 
   solves$: Observable<Solve[]> | undefined;
 
@@ -19,4 +19,7 @@ export class SolvesComponent implements OnInit {
     this.solves$ = this.statsService.getSolves();
   }
 
+  clearSolves(): void {
+    this.statsService.clearSolves();
+  }
 }
